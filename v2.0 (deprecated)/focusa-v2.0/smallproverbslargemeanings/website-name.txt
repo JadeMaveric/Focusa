@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "www.facebook.com/smallproverbs.largemeanings"
 
 https://www.facebook.com/photo.php?v=362721417200926&set=vb.236486913157711&type=2&theater
@@ -5,4 +6,13 @@ https://www.facebook.com/photo.php?v=362721417200926&set=vb.236486913157711&type
 virtual journalism!!
 Getting new cover pictures for Facebook via game print-screen!!
 My first one, through GTA SAN ANDREAS!
+=======
+"www.facebook.com/smallproverbs.largemeanings"
+
+https://www.facebook.com/photo.php?v=362721417200926&set=vb.236486913157711&type=2&theater
+
+virtual journalism!!
+Getting new cover pictures for Facebook via game print-screen!!
+My first one, through GTA SAN ANDREAS!
+>>>>>>> master
 "www.facebook.com/virtualphotoes"
