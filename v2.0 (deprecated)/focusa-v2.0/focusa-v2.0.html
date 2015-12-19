@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <html>
 <head>
 <title>Focusa 2.0_new &amp; improved</title>
@@ -361,4 +362,369 @@ acronym {
 	<form name='todoform' style='position:absolute; bottom:-145px; right:30px; width:200px;'>
 	</form>
 </body>
+=======
+<html>
+<head>
+<title>Focusa 2.0_new &amp; improved</title>
+<link rel="shortcut icon" href="icon.ico">
+<!--
+<script type="text/javascript" src="script2.0.js">
+</script>
+<script type="text/javascript" src="localStores.js">
+</script>
+<script type="text/javascript" src="todo.js">
+</script>
+<script type="text/javascript" src="script.js">
+</script>
+-->
+<script type="text/javascript">
+<!--
+var flasher = true;
+var dd = 0;
+var clickedal = false;
+var timertype;
+var sender;
+var problem = true;
+var timerwow;
+if (load("5") == null) {firsttime()};   //just a random guess to find out whether the browser has the app installed, & if not, it will install...
+
+function canvasplay(sender) {
+	//var theTime = new timerefresh();
+	var canvas = document.getElementById('timescreen');
+	var ctx = canvas.getContext("2d");
+
+	var now = new Date();
+	var theHour = now.getHours();
+	var theMin = now.getMinutes();
+	if (theHour == 0) { 
+		theHour = 12; 
+		var theTime = ((theHour > 12) ? theHour - 12 : theHour);
+		theTime += ((theMin < 10) ? ":0" : ":") + theMin;
+		theTime += " AM";
+	}else {
+		var theTime = ((theHour > 12) ? theHour - 12 : theHour);
+		theTime += ((theMin < 10) ? ":0" : ":") + theMin;
+		theTime += (theHour >=12) ? " PM" : " AM";
+	}
+
+	ctx.clearRect(0, 0, 400, 150); 
+
+	ctx.font = '120px Chiller';
+	ctx.fillText(theTime, 10, 140);
+
+	aimplay();
+
+	if (theTime == validator()) { timereminder(); };
+
+	timerid = setTimeout("canvasplay()", 2000);
+}
+
+function aimplay () {
+	var canvas2 = document.getElementById('aimscreen');
+	var ctx2 = canvas2.getContext("2d");
+	var aim = document.aimform.aim.value;	
+	if (aim == "" || aim == null) { aim = "I'm free today...";}
+
+	ctx2.clearRect(0, 0, 1200, 200);
+
+	ctx2.font = '120px Chiller';
+	ctx2.fillText(aim, ((canvas2.width / 2) - (ctx2.measureText(aim).width / 2)), 140);
+
+	dd = dd+1;
+	if (flasher && dd>=30 && clickedal) {document.title = "Remember your aim!";}
+	if (!flasher && dd>=31 && clickedal) {document.title = aim;}
+	
+	flasher = !flasher;	
+	return;
+
+}
+/*
+function timerefresh () {
+	var now = new Date();
+	var theHour = now.getHours();
+	var theMin = now.getMinutes();
+	var theTime = ((theHour > 12) ? theHour - 12 : theHour);
+	theTime += ((theMin < 10) ? ":0" : ":") + theMin;
+	theTime += (theHour >=12) ? " PM" : " AM";
+
+	return theTime;
+}*/
+
+function timereminder (trigger) {
+	window.focus();	
+	var lables = document.timerform.lables.value;
+	if (lables == "" || lables == null) { lables = "Alarm Alert";}
+	var trigger = confirm(lables + "\n \n" + "Your timer has been triggered...\n" + "(Click \'OK\' to Dismiss the alarm, or \'Cancel\' to snooze)")
+
+	if (trigger) {location.assign("focusa-v2.0.html");}
+	if (!trigger){return;}
+	return;
+}
+
+function validator(gg) {
+if (gg) {
+	if(timertype==null) {
+		alert("Please choose the type of timer you want...");
+		problem = true;
+		return;
+	}
+	if (timertype) {
+		if (isNaN(document.timerform.durata.value)) { 
+			alert("Please enter a number in the textbox...");
+			problem = true;
+			return;
+		}
+		if (document.timerform.durata.value == "") {
+			alert("Please enter a number in the textbox...");
+			problem = true;
+			return;
+		} else {
+			problem = false;
+			var duration = document.timerform.durata.value;
+			if (timerwow ==null){timerwow = setTimeout("timereminder()", duration*60*1000)};
+		}
+		sender =  duration;
+	}
+	if(!timertype) {
+		if (isNaN(document.timerform.hours.value)) {
+		 	alert("Please enter a number in the \'HH\' and \'MM\' textboxes...");
+		 	problem = true;
+		 	return;
+		}
+		if (isNaN(document.timerform.mins.value)) {
+			alert("Please enter a number in the \'HH\' and \'MM\' textboxes...");
+		 	problem = true;
+		 	return;
+		}
+		if (document.timerform.hours.value=="") {
+			alert("Please enter a number in the \'HH\' and \'MM\' textboxes...");
+		 	problem = true;
+		 	return;
+		}
+		if (document.timerform.mins.value=="") {
+			alert("Please enter a number in the \'HH\' and \'MM\' textboxes...");
+		 	problem = true;
+		 	return;
+		 }
+		if(document.timerform.hours.value>12){
+			alert("Enter a proper time...");
+			problem = true;
+			return;
+		}
+		if(document.timerform.mins.value>=60) {
+			alert("Enter a proper time...");
+			problem = true;
+			return;
+		} else { 
+			var hours = parseInt(document.timerform.hours.value);
+			if (hours == 0) { hours = 12};
+			if (document.timerform.mins.value<10) { var minutes= "0" + document.timerform.mins.value}else{var minutes= document.timerform.mins.value};
+			var timerbase = hours + ":" + minutes + " " + document.timerform.meridian.value;
+			problem = false;
+		}
+		sender = timerbase;
+	}
+	if (!problem && gg) {
+		document.timerform.style.opacity = 0;     //transparency of forms if there is no problem...
+		document.aimform.style.opacity = 0;
+	}
+}
+return sender;
+}
+
+function opacity() {
+		document.timerform.style.opacity = 100;
+		document.aimform.style.opacity = 100;
+}
+
+function save (name , value) {
+	localStorage.setItem(name , value);
+	var result = 'saving ' + name + ': ' + value;
+	return result;
+}
+
+function load (name) {
+	var value = localStorage.getItem(name);
+	return value;
+}
+
+function remove (name) {
+	var value = localStorage.getItem(name);
+	localStorage.removeItem(name);
+	var result = "removing " + name + " with " + value;
+	return result;
+}
+
+function firsttime () {
+	save("0" , "");
+	save("1" , "");
+	save("2" , "");
+	save("3" , "");
+	save("4" , "");
+	save("5" , "");
+	save("6" , "");
+	save("7" , "");
+	save("8" , "");
+	save("9" , "");
+}
+
+function toodoo () {
+	document.todoform.style.opacity = 100;
+	var todoform = "<b>Things to do...</b><img src='close.gif' onClick='document.todoform.style.opacity = 0;' style='position:relative; right:-90px;'> <br><hr color='#fff'><br>";
+	todoform += "<form name='internalform'>"
+
+	for (var i = 10; i >= 0; i--){
+		var todo = load(JSON.stringify(i));
+		if (todo != null || todo != "" && i != 10) {
+			todoform += "<form name=\'" + JSON.stringify(i) + "\'>";
+			todoform += "<INPUT type=\'radio\' onClick=\'todolist(" + JSON.stringify(i) + ")\'>";
+		}
+		if (i != 10) {
+		todoform += todo + "<br>";}
+		todoform += "</form>";
+	}
+	todoform += "<hr color='#fff'><form name = 'newtodoadder'></form>";
+	todoform += "<a href='javascript:newtodo()'>Add new todo</href></form>";
+	document.todoform.innerHTML = todoform;
+}
+
+function todolist (name) {
+	save(name , "");
+}
+
+function newtodo() {
+	var newtodoUI = "<b>New todo:</b>";
+	newtodoUI +="<input type='text' name='eli' value='Enter your todo...' onClick='document.newtodoadder.eli.value = \"\"'>";
+	document.newtodoadder.innerHTML = newtodoUI;
+
+	var nene="<input type='button' value='OK' onClick='empty()'><br>";
+	nene +="<stron>Please DO NOT press the \'enter\' key...</stron>"
+	document.newtodoadder.innerHTML += nene;
+}
+
+function empty () {
+	var lolo = document.newtodoadder.eli.value;
+	var vacant = findnextvacanttodo();
+	if (vacant == null) {
+		alert("Your TODO list has filled up... Clear up some of it!")
+	}
+	save(vacant , lolo);
+	toodoo();
+}
+
+function findnextvacanttodo() {
+	for (var i = 9; i >= 0; i--) {
+		if(load(JSON.stringify(i)) == "") {
+			return JSON.stringify(i);
+		}
+	}
+	return null;
+}
+-->
+</script>
+<style type="text/css">
+body
+{
+   background-color: #fff;
+   background-image: url(smallproverbslargemeanings/spider.jpg);
+   background-position: 50px;
+   background-attachment: scroll;
+   background-position: center center;
+   background-repeat: no-repeat;
+}
+a {
+	color: rgb(0,255,0);
+}
+a:hover{
+	color: rgb(255,255,0);
+}
+center {
+	font-size: 48;
+	font-family: "Freestyle Script";
+	color: #FFFFFF;
+}
+abbr {
+	position: absolute;
+	font-size: 60px;
+	font-family: 'Calibri';
+	color: #27F;
+	border-bottom: rgb(22 , 77 , 77);
+}
+span {
+	font-family: "Calibri";
+	font-size: 100px;
+}
+form {
+	font-family: 'Calibri';
+	font-size: 14;
+	color: rgb(255,255,255);
+	background-color: rgba(70, 22, 68, 0.85);
+}
+stron {
+	font-style: italic;
+	font-family: 'Calibri';
+	font-size: 14;
+}
+acronym {
+	font-family: 'Calibri';
+	font-size: 14;
+	color: rgb(255,255,255);
+	background-color: rgba(70, 22, 68, 0.85);
+}
+</style>
+</head>
+
+<body onload="canvasplay()">
+	<tool height="120" width="1280">
+		<img src = "icon.ico">
+		<span style="position:absolute;left:110px">FOCUSA v2.0</span>
+		<abbr style="right:210px; top:20px" onClick="opacity()">SETTINGS</abbr>
+		<abbr style="right:10px; top:20px;" onClick="alert('©Yash Diniz\n' + 'Not for commercial uses.\n' + 'Open Source Software(GPL).')">ABOUT</abbr>
+		<hr color="#277">
+	</tool>
+	<center>"Remember, Yash, always to watch the time..."</center>
+	<br>
+	<center>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-My Dad(Jose Diniz)</center>
+	<center><canvas id="timescreen" width="400" height="150">The time...</canvas></center>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<center>What is your main focus for today?</center>
+	<center><canvas id="aimscreen" width="1200" height="200"></canvas></center>
+		
+
+		<form name="timerform" style="position:absolute; top:90px; right:220px;  width: 520px;">
+			<br>
+			&nbsp;&nbsp;<b>What kind of timer do you want?</b><br><br>
+			<INPUT type="radio" name="g1" onClick="timertype=true">A duration timer<br>
+			&nbsp;&nbsp;A duration timer has the alarm based on the number of minutes to ring from now...<br>
+			&nbsp;&nbsp;Eg. If you type '10' in the textbox below, the alarm will ring after 10 minutes.<br>
+			&nbsp;&nbsp;<INPUT type="text" name="durata"> minutes.<br><br>	
+			<INPUT type="radio" name="g1" onClick="timertype=false"> An hour-based timer<br>		
+			&nbsp;&nbsp;An hour-based timer will ring at the time set below...<br>
+			&nbsp;&nbsp;Eg. If you set '9:30 AM', the alarm wil ring at 9:30 AM.<br>
+			&nbsp;&nbsp;<INPUT type="text" maxlength="2" value="HH" name="hours" onClick="document.timerform.hours.value = ''"> : <INPUT type="text" maxlength="2" value="MM" name="mins" onClick="document.timerform.mins.value = ''"> <select name="meridian"><option>AM</option><option>PM</option></select><hr color="#fff" width='300' align="left">
+			&nbsp;&nbsp;<b>Add a label to your timer(optional):</b>&nbsp;<INPUT type="text" name="lables">
+			<center><hr color="#fff" width="478"></center>
+		</form>		
+		<form name="aimform" style="position:absolute; top:395px; right:220px; width: 520px;">
+			&nbsp;&nbsp;<b>What is your main focus for this session?</b><br><br>
+			&nbsp;&nbsp;<INPUT type="text" name="aim" maxlength="20"><br>
+			&nbsp;&nbsp;A 'focus' is the job you are currently completing in this session...<br>
+			&nbsp;&nbsp;It should be short and easy to understand, because this app will remind you about <br>
+			&nbsp;&nbsp;your focus every now and then, in as many ways as possible.<br>
+			&nbsp;&nbsp;<stron>(Focusses are not saved. Therefore, just keep short-term aims...)</stron>
+			<br><br>
+			&nbsp;&nbsp;<input type="button" value="OK" onClick=" clickedal = true; validator(true);"> <stron>You can edit the settings later too, just click on 'SETTINGS'...</stron>
+			<br><br>
+		</form>
+	<a href="help.html"style="position:absolute; left:10px;">help...</a>
+	<input type="button" style="position:absolute; right:30px; height:25px; width:55px;" value='Todo' onClick="toodoo(true)">
+
+	<form name='todoform' style='position:absolute; bottom:-145px; right:30px; width:200px;'>
+	</form>
+</body>
+>>>>>>> master
 </html>
