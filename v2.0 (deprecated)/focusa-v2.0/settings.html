@@ -1,0 +1,93 @@
+<head>
+<title>Settings</title>
+<link rel="shortcut icon" href="icon.ico">
+<style type="text/css">
+span {
+	font-family: "Calibri";
+	font-size: 100px;
+}
+abbr {
+	position: absolute;
+	font-size: 80px;
+	font-family: 'Calibri';
+	border-bottom: rgb(22 , 77 , 77);
+}
+form {
+	font-family: 'Calibri';
+	font-size: 14;
+}
+stron {
+	font-style: italic;
+}
+</style>
+<script type="text/javascript" src="cookie.js"></script>
+
+<script type="text/javascript">
+	<!--
+		var timertype;
+		var sender;
+
+		function validator() {
+			if(timertype==null) {
+			alert("Please choose the type of timer you want...");
+			}
+			if (timertype) {
+				if (isNaN(document.timerform.durata.value)) { 
+					alert("Please enter a number in the textbox...")
+				} else {
+					var duration = document.timerform.durata.value;
+				}
+				sender = duration;
+			}
+			if(!timertype) {
+				if (isNaN(document.timerform.hours.value) && isNaN(document.timerform.mins.value)) {
+				 alert("Please enter a number in the \'HH\' and \'MM\' textboxes...");
+				}
+				if(document.timerform.hours.value>12){
+						alert("Enter a valid time...");
+				}
+				if(document.timerform.mins.value>=60) {
+						alert("Enter a valid time...");
+				} else { 
+					var timerbase = document.timerform.hours.value + ":" + document.timerform.mins.value + " " + document.timerform.meridian.value;
+				}
+				sender = timerbase;
+			}
+		}	
+	-->
+</script>
+</head>
+
+<body onload="window.focus()">
+	<tool style="background-color: transparent;">
+		<img src = "icon.ico">
+		<span style="position:absolute;left:110px">FOCUSA v2.0</span>
+		<abbr style="right:10px; top:20px;" onClick="alert('©Yash Diniz\n' + 'Not for commercial uses.\n' + 'Open Source Software(GPL).')">ABOUT</abbr>
+		<hr color="#277">
+	</tool>
+
+	<div id="formsdiv" style ="position:absolute;left:10px;top:120px;z-index:1">
+		<form name="timerform">
+			<b>What kind of timer do you want?</b><br><br>
+			<INPUT type="radio" name="g1" onClick="timertype=true">A duration timer<br>
+			A duration timer has the alarm based on the number of minutes to ring from now...<br>
+			Eg. If you type '10' in the textbox below, the alarm will ring after 10 minutes.<br>
+			<INPUT type="text" name="durata"> minutes.<br><br>	
+			<INPUT type="radio" name="g1" onClick="timertype=false"> An hour-based timer<br>		
+			An hour-based timer will ring at the time set below...<br>
+			Eg. If you set '9:30 AM', the alarm wil ring at 9:30 AM.<br>
+			<INPUT type="text" maxlength="2" value="HH" name="hours"> : <INPUT type="text" maxlength="2" value="MM" name="mins"> <select name="meridian"><option>AM</option><option>PM</option></select>
+			<input type="button" value="OK" name="ok" onClick="validator(); var love = true; return love;">
+		</form>
+		<br><br><hr color="#277"><br>
+		<form name="aimform">
+			<b>What is the aim for this session?</b><br><br>
+			An 'aim' is the job you are currently completing in this session...<br>
+			It should be short and easy to understand, because this app will remind you about your aim<br>
+			every now and then, in as many ways as possible.<br>
+			<INPUT type="text" name="aim" maxlength="20"><br>
+			<stron>(Aims are not saved. Therefore, just keep short-term aims...)</stron>
+		</form>
+
+	</div>
+</body>
